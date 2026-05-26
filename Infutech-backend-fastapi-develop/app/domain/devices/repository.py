@@ -54,6 +54,9 @@ class DeviceRepository:
         return device
 
     async def create_patient_device(self, patient_id: int, device_id: int) -> PatientDevice:
+        # 같은 기기에 연결된 다른 환자를 모두 disconnected로 변경
+        await self.disconnect_other_patients(device_id, patient_id)
+
         pd = PatientDevice(
             patient_id=patient_id,
             device_id=device_id,
@@ -65,6 +68,22 @@ class DeviceRepository:
         await self.db.commit()
         await self.db.refresh(pd)
         return pd
+
+    async def disconnect_other_patients(self, device_id: int, exclude_patient_id: int) -> None:
+        """같은 기기에 연결된 다른 환자들을 disconnected로 변경"""
+        from sqlalchemy import update
+        await self.db.execute(
+            update(PatientDevice)
+            .where(
+                PatientDevice.device_id == device_id,
+                PatientDevice.patient_id != exclude_patient_id,
+                PatientDevice.connection_status == "connected",
+            )
+            .values(
+                connection_status="disconnected",
+                disconnected_at=datetime.utcnow(),
+            )
+        )
 
     async def find_patient_device(self, patient_id: int, device_id: int) -> PatientDevice | None:
         result = await self.db.execute(

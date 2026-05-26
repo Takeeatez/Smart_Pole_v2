@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -225,18 +224,6 @@ class _WiFiInstructionScreenState
                   ref.read(provisioningProvider.notifier).scanWifi();
                 },
               ),
-              if (kDebugMode) ...[
-                const SizedBox(height: 8),
-                TextButton(
-                  onPressed: () => context.go('/iv-status'),
-                  child: Text(
-                    '개발자: 메인 화면으로 스킵',
-                    style: AppTypography.small.copyWith(
-                      color: AppColors.textMuted,
-                    ),
-                  ),
-                ),
-              ],
             ],
           ),
         ),

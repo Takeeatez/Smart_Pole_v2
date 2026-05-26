@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/models/notification_data.dart';
+import '../../core/services/fcm_service.dart';
 import '../../core/services/notification_service.dart';
 import 'iv_status_provider.dart';
 
@@ -49,7 +50,14 @@ final notificationProvider =
 
 class NotificationNotifier extends AsyncNotifier<NotificationState> {
   @override
-  Future<NotificationState> build() => _fetchPage(1);
+  Future<NotificationState> build() {
+    // FCM 포그라운드 메시지 수신 시 자동 새로고침
+    FcmService.instance.onMessageReceived = () {
+      refresh();
+      ref.read(dashboardProvider.notifier).refresh();
+    };
+    return _fetchPage(1);
+  }
 
   Future<NotificationState> _fetchPage(int page) async {
     final service = ref.read(notificationServiceProvider);

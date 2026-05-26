@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -113,27 +112,6 @@ class _QRScanScreenState extends ConsumerState<QRScanScreen> {
                           size: 16, color: AppColors.textMuted),
                       onPressed: () {},
                     ),
-                    // 개발자 테스트 버튼 (디버그 모드)
-                    if (kDebugMode) ...[
-                      const SizedBox(height: 8),
-                      TextButton(
-                        onPressed: () {
-                          // 테스트용 QR 데이터
-                          final testQrData = DeviceQrData(
-                            name: 'INFUCARE_A1B2',
-                            pop: 'infucare123',
-                            rawQrValue: '{"name":"INFUCARE_A1B2","pop":"infucare123"}',
-                          );
-                          context.push('/wifi-list', extra: testQrData);
-                        },
-                        child: Text(
-                          '개발자: 테스트 QR 데이터로 진행',
-                          style: AppTypography.small.copyWith(
-                            color: AppColors.textMuted,
-                          ),
-                        ),
-                      ),
-                    ],
                   ],
                 ),
               ),

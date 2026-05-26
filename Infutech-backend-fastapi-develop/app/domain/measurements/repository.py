@@ -63,6 +63,6 @@ class MeasurementRepository:
             select(PatientDevice.patient_id).where(
                 PatientDevice.device_id == device_id,
                 PatientDevice.connection_status == "connected",
-            ).limit(1)
+            ).order_by(PatientDevice.connected_at.desc()).limit(1)
         )
         return result.scalar()

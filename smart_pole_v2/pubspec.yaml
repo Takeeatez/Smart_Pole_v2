@@ -57,6 +57,10 @@ dependencies:
   flutter_secure_storage: ^9.0.0
   web_socket_channel: ^3.0.0
 
+  # Firebase (FCM Push Notifications)
+  firebase_core: ^3.8.1
+  firebase_messaging: ^15.2.1
+
   # OCR (수액팩 텍스트 인식)
   google_mlkit_text_recognition: ^0.14.0
   image_picker: ^1.1.2

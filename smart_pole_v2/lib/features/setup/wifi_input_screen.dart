@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -117,19 +116,6 @@ class _WiFiInputScreenState extends ConsumerState<WiFiInputScreen> {
                       text: '연결하기',
                       onPressed: _handleConnect,
                     ),
-                    // 개발자 스킵 버튼 (디버그 모드에서만 표시)
-                    if (kDebugMode) ...[
-                      const SizedBox(height: 12),
-                      TextButton(
-                        onPressed: () => context.go('/iv-status'),
-                        child: Text(
-                          '개발자: 메인 화면으로 스킵',
-                          style: AppTypography.small.copyWith(
-                            color: AppColors.textMuted,
-                          ),
-                        ),
-                      ),
-                    ],
                   ],
                 ),
               ),
