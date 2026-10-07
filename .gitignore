@@ -1,5 +1,7 @@
 # 민감 정보
 backandinfo.md
+google-services.json
+GoogleService-Info.plist
 
 # Claude Code
 .claude/
